@@ -1,0 +1,5 @@
+#The path of RNAstructure programs are installed 
+RNAstructure = 
+
+#The path of Vienna package programs are installed 
+Vienna package = 
