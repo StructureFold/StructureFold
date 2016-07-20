@@ -12,11 +12,22 @@ Tang Y, Bouvier E, Kwok CK, Ding Y, Nekrutenko A, Bevilacqua PC, Assmann SM. Str
 
 
 #Package contents
+         All scripts contain a help function. Run script with -h for all options.
+
 Main Scripts
         The main programs of the package
+        
+        react_cal_structurefold.py
+               Derives structural reactivity from RT stop count file.
+               Requires RT stop files from - and + DMS treated samples
+               
+         predict_multiple_RNAs.py
+               Uses a restraint file, a list of transcripts, and their sequences to predict secondary structure.
+               Requires either RNAStructure or ViennaPackage
+               
 
 Accessory Scripts
-        Fast ways to organize your data or convert it into a useful format
+        Fast ways to organize your data or convert it into a useful format.
 
         generate_PPV_file.py
                 Requires RNAStructure package. Iterates through two directories of .ct files and computes all PPV values.
