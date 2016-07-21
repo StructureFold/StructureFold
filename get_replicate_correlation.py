@@ -7,43 +7,65 @@ from argparse import RawTextHelpFormatter
 import argparse
 
 
+def get_name(f_list):
+    r = ""
+    for i in range(len(f_list)-1):
+        r = r+f_list[i].split(".rtsc")[0].strip()+"_"
+    i = i+1
+    r = r+f_list[i].split(".rtsc")[0]
+    return r
+
+def find_common(d_list):
+    r = set()
+    for t in d_list[0]:
+        flag = 1
+        for i in range(1, len(d_list)):
+            if t not in d_list[i]:
+                flag = 0
+        if flag == 1:
+            r.add(t)
+    return r
 
 
 def __main__():
     parser = argparse.ArgumentParser(description='Calculate correlation between biological replicate libraries\n', formatter_class=RawTextHelpFormatter)
-    parser.add_argument('rep1', metavar="<RTSC_file1>",help='input RT stop count file of replicate 1')
-    parser.add_argument('rep2', metavar="<RTSC_file2>",help='input RT stop count file of replicate 2')
-    parser.add_argument('result', nargs='?', metavar="<correlation_file>",help='Output abundance file (text file) [Default: [RTSC name]_correlation.txt]')
+    parser.add_argument('replicate',help='input RT stop count files (rtsc files) of replicates', nargs="+")
+    #parser.add_argument('rep2', metavar="<RTSC_file2>",help='input RT stop count file of replicate 2')
+    parser.add_argument('-o', dest = 'result',help='Output correlation file (csv file) [Default: [RTSC name]_correlation.csv]')
     args = parser.parse_args()
     
-    dist_file1 = args.rep1
-    dist_file2 = args.rep2
+    file_list = args.replicate
     output_file = args.result
 
+    if len(file_list)<2:
+        sys.exit("Need at least 2 replicates for correlation!")
 
-    n_m1 = dist_file1.split(".rtsc")[0].strip()
-    n_m2 = dist_file2.split(".rtsc")[0].strip()
-    prefix = n_m1+"_"+n_m2
+
 
     if output_file == None:
-        output_file = prefix+"_correlation.txt"
+        prefix = get_name(file_list)
+        output_file = prefix+"_correlation.csv"
 
-        
-    dist1 = parse_dist(dist_file1)
-    dist1 = dist1[1]
+    dist_list = []
+    for i in range(len(file_list)):
+        dist = parse_dist(file_list[i])
+        dist = dist[1]
+        dist_list.append(dist)
 
-    dist2 = parse_dist(dist_file2)
-    dist2 = dist2[1]
+
 
     r = []
-    for t in dist1:
-        for i in range(len(dist1[t])):
-            temp = [t, dist1[t][i], dist2[t][i]]
+    t_set = find_common(dist_list)
+    for t in t_set:
+        for i in range(len(dist_list[0][t])):
+            temp = [t, dist_list[0][t][i]]
+            for j in range(1, len(dist_list)):
+                temp.append(dist_list[j][t][i])
             r.append(temp)
 
-    write_t_file(output_file, r)
+    write_c_file(output_file, r)
     
-    
+
     
     
 
