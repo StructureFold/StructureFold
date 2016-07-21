@@ -4,52 +4,6 @@ import glob
 import subprocess
 import time
 
-#Classes
-#TBH, you should make a formal class and actually deploy it to both deal with first mis-matches, and the orientation of the read
-class Mapped_Read(object):
-  def __init__(self,qname='',flag='',rname='',pos='',mapq='',cigar='',rnext='',pnext='',tlen='',seq='',qual='',attributes=''):
-    '''Mapped Illumina Read'''
-    self.qname = qname
-    self.flag = flag
-    self.rname = rname
-    self.pos = pos
-    self.mapq = mapq
-    self.cigar = cigar
-    self.rnext = rnext
-    self.pnext = pnext
-    self.tlen = tlen
-    self.seq = seq
-    self.qual = qual
-    self.attributes = attributes
-
-  def __str__(self):
-    return ' '.join ([self.name,str(self.paired),self.bitflag,self.cigar,str(self.start),str(self.mapped),str(self.gaps)])
-
-  @classmethod
-  def from_sam_line(klass,sam_line):
-    '''SAM line -> Mapped_Read'''
-    bits= sam_line.strip().split()
-    if bits[0].startswith('@'):
-      return klass('')
-    QNAME,FLAG,RNAME,POS,MAPQ,CIGAR,RNEXT,PNEXT,TLEN,SEQ,QUAL = bits[0:11]
-    if len(bits)==11:
-      return klass(QNAME,FLAG,RNAME,POS,MAPQ,CIGAR,RNEXT,PNEXT,TLEN,SEQ,QUAL)
-    if len(bits) > 11:
-      ATTR = bits[11:]
-      return klass(QNAME,FLAG,RNAME,POS,MAPQ,CIGAR,RNEXT,PNEXT,TLEN,SEQ,QUAL,ATTR)
-
-def derp_function(infile):
-  '''Docstring'''
-  with open(infile) as f:
-    for line in f:
-      a = Mapped_Read.from_sam_line(line)
-      #print a.attributes
-      print a.cigar, len(a.seq), a.attributes
-      #You dummy, it works like a CIGAR string, where the first flag is just numbers
-      #If header line,write
-      #If line with mismatch at 1
-      #if line where bitflag aligns to the opposite stand
-
 #Functions
 def remove_first_mismatch(infile):
   '''docstring'''
@@ -73,7 +27,7 @@ def remove_first_mismatch(infile):
   return outfile
 
 def keep_good_reads(infile):
-  '''docstring'''
+  '''Run a quick SAMTOOLS cleanup of the reads'''
   outfile= infile.split('.')[0]+'_Fwd.sam'
   #samtools view -h -F 0xeff -S AA_cdna.sam > AA_2.sam
   subprocess.call(' '.join(['samtools','view','-h','-F','0xeff','-S',infile,'>',outfile]),shell=True)
