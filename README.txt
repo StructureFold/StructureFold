@@ -69,6 +69,12 @@ Accessory Scripts
          
          get_abundance.py
                   Creates a csvs of abundances.
+                  
+         process_sams.py
+                  Removes reads where there are more than 3 mismatches, a mismatch on first base,
+                  or are in the wrong orientation. Requires SamTools. Workson a directory.
+                  IN: <.sam>
+                  OUT: <.sam>
          
          combine_RT_stop.py
                   Combines two .rtsc files. 
