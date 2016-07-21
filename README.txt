@@ -17,11 +17,13 @@ Tang Y, Bouvier E, Kwok CK, Ding Y, Nekrutenko A, Bevilacqua PC, Assmann SM. Str
 Main Scripts
         The main programs of the package
         
-        react_cal_structurefold.py
-               Derives structural reactivity from RT stop count file.
+        reactivitiy_calculator.py
+               Derives structural reactivity from RT stop count files.
                Requires RT stop files from - and + DMS treated samples
+               IN: <rtsc>, transcript.fasta, transcript list
+               OUT: <.react>, normalization_scales
                
-         predict_multiple_RNAs.py
+         batch_folder.py
                Uses a restraint file, a list of transcripts, and their sequences to predict secondary structure.
                Requires either RNAStructure or ViennaPackage
                
@@ -30,9 +32,24 @@ Accessory Scripts
         Fast ways to organize your data or convert it into a useful format.
 
         generate_PPV_file.py
-                Requires RNAStructure package. Iterates through two directories of .ct files and computes all PPV values.
+                Requires RNAStructure package. 
+                Iterates through two directories of .ct files and computes all PPV values.
 
         generate_coverages.py
                 Creates lists of coverage overlap between all coverage files in a directory.
                 Overlap lists are useful for other tools.
                 
+         get_coverage.py
+                Calculates transcript coverage using .react files and the .fasta of the transcripts
+                
+         get_specificity.py
+                Calculates the stop specificity using .react files and the .fasta of the transcripts
+         
+         get_replicate_correlation.py
+                 Creates a csv to compare the correlation of RT stop counts.
+         
+         get_abundance.py
+                  Creates a csvs of abundances.
+         
+         combine_RT_stop.py
+                  Combines two .rtsc files. 
