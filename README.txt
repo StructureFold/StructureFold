@@ -26,6 +26,8 @@ Main Scripts
          batch_folder.py
                Uses a restraint file, a list of transcripts, and their sequences to predict secondary structure.
                Requires either RNAStructure or ViennaPackage
+               IN: <.react>, transcript.fasta, transcript list
+               OUT: <.ct>, <.ps>
                
 
 Accessory Scripts
@@ -34,6 +36,9 @@ Accessory Scripts
         generate_PPV_file.py
                 Requires RNAStructure package. 
                 Iterates through two directories of .ct files and computes all PPV values.
+                Only transcripts appearing in both directories are compared.
+                IN: <.ct>
+                OUT: <.csv>
 
         generate_coverages.py
                 Creates lists of coverage overlap between all coverage files in a directory.
