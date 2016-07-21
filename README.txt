@@ -39,8 +39,14 @@ Accessory Scripts
                 Only transcripts appearing in both directories are compared.
                 IN: <.ct>
                 OUT: <.csv>
+         
+         reactivity_stats.py
+                Uses all .rtsc files in a directory to generate basic statsistics.
+                Requires an overlap list as a key file; only transcrips on this list will be processed
+                IN: directory of <.rtsc>, overlap
+                OUT: <.csv>
 
-        generate_coverages.py
+         generate_coverages.py
                 Creates lists of coverage overlap between all coverage files in a directory.
                 Overlap lists are useful for other tools.
                 IN: directory of coverages
