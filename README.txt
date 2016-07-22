@@ -43,6 +43,7 @@ Accessory Scripts
          reactivity_stats.py
                 Uses all .rtsc files in a directory to generate basic statsistics.
                 Requires an overlap list as a key file; only transcrips on this list will be processed
+                Options to remove last n bp of transcripts, enforce minimum length.
                 IN: directory of <.rtsc>, overlap
                 OUT: <.csv>
 
@@ -69,6 +70,10 @@ Accessory Scripts
          
          get_abundance.py
                   Creates a csvs of abundances.
+                  
+         reset_n_bp.py
+                  sets the last n bases of all .react files in the directory to NA.
+                  used when the molecular technique cannot resolve the reactivity at the last n bp.
                   
          process_sams.py
                   Removes reads where there are more than 3 mismatches, a mismatch on first base,
