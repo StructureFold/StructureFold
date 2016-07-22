@@ -39,22 +39,44 @@ Accessory Scripts
                 Only transcripts appearing in both directories are compared.
                 IN: <.ct>
                 OUT: <.csv>
+         
+         reactivity_stats.py
+                Uses all .rtsc files in a directory to generate basic statsistics.
+                Requires an overlap list as a key file; only transcrips on this list will be processed
+                IN: directory of <.rtsc>, overlap
+                OUT: <.csv>
 
-        generate_coverages.py
+         generate_coverages.py
                 Creates lists of coverage overlap between all coverage files in a directory.
                 Overlap lists are useful for other tools.
+                IN: directory of coverages
+                OUT: directory of overlaps of coverage
                 
          get_coverage.py
                 Calculates transcript coverage using .react files and the .fasta of the transcripts
+                IN: <.rtsc>, transcript .fastq
+                OUT: coverages
                 
          get_specificity.py
                 Calculates the stop specificity using .react files and the .fasta of the transcripts
+                IN: <.rtsc>, transcript .fastq
+                OUT: specificities
          
          get_replicate_correlation.py
                  Creates a csv to compare the correlation of RT stop counts.
+                 IN: <.rtsc>
+                 OUT: <.csv>
          
          get_abundance.py
                   Creates a csvs of abundances.
+                  
+         process_sams.py
+                  Removes reads where there are more than 3 mismatches, a mismatch on first base,
+                  or are in the wrong orientation. Requires SamTools. Workson a directory.
+                  IN: <.sam>
+                  OUT: <.sam>
          
          combine_RT_stop.py
                   Combines two .rtsc files. 
+                  IN: <.rtsc>
+                  OUT: <.rtsc>
