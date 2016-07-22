@@ -31,7 +31,7 @@ def create_temp_seq(id_s, seqs, path):
 def create_temp_react(id_s, react, path, mode, shift, thres=None):
     if id_s not in react:
         print(id_s+" not in the data of react!")
-        cons.append(id_s)
+        cons_n.append(id_s)
         return False
     else:
         if mode == '1':
@@ -161,11 +161,11 @@ def update_meter_S(linecount,threshold):
     #print("dd")
     if linecount % threshold == 0:
         #sys.stdout.write('\033[1;94m'+u'\u25A3'+'\033[0m')
-        sys.stdout.write('\033[1;94m'+u'\u25A3'+'\033[0m')
+        sys.stdout.write('=')
         sys.stdout.flush()
 
 def progress_bar(output_directory, thres):
-    sys.stdout.write('\033[92m'+'\033[1m[')
+    sys.stdout.write('[')
     sys.stdout.flush()
     ld = 0
     while(True):
@@ -175,7 +175,7 @@ def progress_bar(output_directory, thres):
             update_meter_S(lnew, thres)
             ld = lnew
         if stop:
-            sys.stdout.write('\033[92m\033[1m'+']'+'\033[0m')
+            sys.stdout.write(']')
             break
 
 def __main__():
@@ -387,7 +387,7 @@ def __main__():
     if len(id_n)>0:
         with open(os.path.join(output_directory, "ID_not_in_reference.txt"), 'w') as h:
             for i in range(len(id_n)):
-                h.write(rtl[i]+"\n")
+                h.write(id_n[i]+"\n")
 
     if len(cons_n)>0:
         with open(os.path.join(output_directory, "ID_not_in_reactivity.txt"), 'w') as h:
