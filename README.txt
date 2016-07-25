@@ -24,20 +24,26 @@ Main Scripts
                OUT: <.react>, normalization_scales
                
          batch_folder.py
-               Uses a restraint file, a list of transcripts, and their sequences to predict secondary structure.
+               Uses a restraint file, a list of transcripts, and their sequences to predict secondary structure or base-pairing probability matrix (partition function).
                Requires either RNAStructure or ViennaPackage
                IN: <.react>, transcript.fasta, transcript list
-               OUT: <.ct>, <.ps>
+               OUT: <.ct>/<.bp>, <.ps>
                
 
 Accessory Scripts
         Fast ways to organize your data or convert it into a useful format.
 
-        generate_PPV_file.py
+         generate_PPV_file.py
                 Requires RNAStructure package. 
                 Iterates through two directories of .ct files and computes all PPV values.
                 Only transcripts appearing in both directories are compared.
                 IN: <.ct>
+                OUT: <.csv>
+
+         batch_get_rmsd.py 
+                Iterates through two directories of .bp files and computes all RMSD values.
+                Only transcripts appearing in both directories are compared.
+                IN: <.bp>
                 OUT: <.csv>
          
          reactivity_stats.py
