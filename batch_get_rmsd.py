@@ -117,7 +117,7 @@ def __main__():
             f2 = read_t_file(file2)
             rmsd = cal_rmsd(f1, f2)
             r.append([t, rmsd])
-    write_t_file(result, r)
+    write_c_file(result, r)
 
     
 
