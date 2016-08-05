@@ -3,6 +3,7 @@
 import sys
 from header.parse_dis_react import *
 from header.write_file import *
+from header.read_file import *
 from argparse import RawTextHelpFormatter
 import argparse
 from Bio import SeqIO
@@ -34,7 +35,7 @@ def __main__():
     #parser.add_argument('rep2', metavar="<RTSC_file2>",help='input RT stop count file of replicate 2')
     parser.add_argument('-o', dest = 'result',help='Output correlation file (csv file) [Default: [RTSC name]_correlation.csv]')
     parser.add_argument("-d", "--id_list", dest="id_file", default = None, help='The transcript ID list for calculating RT stops')
-    parser.add_argument("-s", "--specificity", dest="spe", default = None, help='Type of nucleotide for calculating RT stops [Default: all type of nucleotides]')
+    parser.add_argument("-s", "--specificity", dest="spe", default = None, help='Type of nucleotide for calculating RT stops, e.g. AC [Default: all type of nucleotides]')
     parser.add_argument("-re", "--reference", dest="ref", default = None, help='Mapping reference file (cDNA library) [Must specify if -s is used]')
     
     args = parser.parse_args()
@@ -63,7 +64,7 @@ def __main__():
 
     idss = set()
     if ids:
-        idst = read_t_file(idss)
+        idst = read_t_file(ids)
         for i in range(len(idst)):
             idss.add(idst[i][0])
 
@@ -105,8 +106,8 @@ def __main__():
                 flag_spe = 0
                 if spe:
                     if ref:
-                        if t in cdna:
-                            n = cdna[t][i-1]
+                        if t in cdnas:
+                            n = cdnas[t][i-1]
                             if n in spes:
                                 flag_spe = 1
                         else:
